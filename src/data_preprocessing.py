@@ -7,9 +7,10 @@ to np.nan (preprocessing before modelling happens)
 import numpy as np #array manipulation
 from sklearn.preprocessing import SplineTransformer #spline transformer (non-linearity)
 from sklearn.compose import ColumnTransformer #transform specific columns with various pipelines
-from sklearn.pipeline import Pipeline #for pipeline 
+from sklearn.pipeline import Pipeline #for pipeline
+from prefect import task #Orchestration Pipeline 
 
-
+@task()
 def remove_columns(combined_df):
     """Remove redundant columns using domain knowledge (unique identifiers are definitely not important in determing price_ranges)
 
@@ -47,7 +48,7 @@ def map_missing_values(combined_x):
         x_df[cols] = x_df[cols].replace({'0':np.nan, 0:np.nan})  
     return combined_x[0], combined_x[1]
 
-
+@task
 def feature_engineering_old(combine_x):
     """Feature Engineering (Create new features) of old phone model variable
 

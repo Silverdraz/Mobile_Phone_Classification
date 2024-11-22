@@ -15,6 +15,7 @@ from sklearn.impute import IterativeImputer #multiple imputation (missing values
 from sklearn.model_selection import cross_validate #cross validation score
 from sklearn.preprocessing import StandardScaler #standardization
 from sklearn.model_selection import GridSearchCV #grid search cv
+from prefect import task #Orchestration Pipeline 
 import os #os file path
 
 #Import Models for comparison
@@ -102,7 +103,9 @@ def mi_algo(x_train,y_train):
     )
     #Shuffle the dataset to prevent learning of order
     kfold = KFold(n_splits=5,shuffle=True,random_state=42)
-    print(np.mean(cross_val_score(mi_clf, x_train, y_train, cv=kfold)))
+    result = np.mean(cross_val_score(mi_clf, x_train, y_train, cv=kfold))
+    print(result)
+    return result
 
 
 def mi_fe_algo(x_train,y_train):
@@ -306,9 +309,10 @@ def svm_tuning(x_train,y_train):
     print("This is the best params")
     print(grid.best_params_)
     print(grid.cv_results_)
+    return grid
 
 
-
+@task(retries=3, retry_delay_seconds=2)
 def final_svm():
     """ SVM is chosen at the model for prediction/inference. Using grid search to tune the C parameter,
         c = 1.1 gives the highest validation accuracy.

@@ -5,6 +5,7 @@ Perform inference/prediction on the test dataset and to prepare the submission f
 #Import statements
 import pandas as pd #data processing, CSV file I/O (e.g. pd.read_csv)
 import os #os file paths
+from prefect import task, flow #Orchestration Pipeline
 
 #Global Constants
 DATA_PATH = r"..\data\MobilePriceClassification" #Path to raw data
@@ -13,7 +14,8 @@ DATA_PATH = r"..\data\MobilePriceClassification" #Path to raw data
 import models #models module
 import data_preprocessing #data preprocessing module
 
-def main():
+@flow(log_prints=True)
+def main_flow():
     train_data, test_data = train_test_dfs()
  
     #For applying functions on both dataframes
@@ -46,14 +48,20 @@ def main():
     x_test_column["price_range"] = final_prediction_series
     x_test_column.to_csv(r"..\submission_file.csv")
 
-#Retrieve the data and split into train and test split
+
+@task(retries=3, retry_delay_seconds=2)
 def train_test_dfs():
-    # Retrieve the raw train and raw test data
+    """ Retrieve the raw train and raw test data
+
+        Returns:
+            train_data: raw train dataset
+            test_data: raw test dataset
+    """    
     train_data = pd.read_csv(os.path.join(DATA_PATH,f"train.csv"))
     test_data = pd.read_csv(os.path.join(DATA_PATH,f"test.csv"))
     return train_data, test_data
 
 
 if __name__ == "__main__":
-    main()
+    main_flow()
     
