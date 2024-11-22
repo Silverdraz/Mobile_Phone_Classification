@@ -63,5 +63,19 @@ def train_test_dfs():
 
 
 if __name__ == "__main__":
-    main_flow()
+    #main_flow()
+    #main_flow.serve(name="my-first-deployment", cron="* * * * *")
+    flow.from_source(
+        source="https://github.com/Silverdraz/Mobile_Phone_Classification",
+        entrypoint="src\test.py:main_flow",
+    ).deploy(name="mobile_phone_1",
+        work_pool_name="mobile_phone_classification",
+        push=True,
+        cron="* * * * *")
+    # main_flow.deploy(
+    #     name="mobile_phone_1",
+    #     work_pool_name="mobile_phone_classification",
+    #     push=True,
+    #     cron="* * * * *",
+    # )
     
