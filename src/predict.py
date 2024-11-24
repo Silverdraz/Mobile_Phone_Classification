@@ -6,21 +6,14 @@ Perform inference/prediction as an API endpoint using the saved SVM model that w
 import pandas as pd #data processing, CSV file I/O (e.g. pd.read_csv)
 import os #os file paths
 import pickle #Saving and loading models or python objects
-from prefect import task, flow #Orchestration Pipeline
 from flask import Flask, request, jsonify
-import warnings
-from logging import FileHandler,WARNING
 import sys
 import json
-
 
 #Global Constants
 DATA_PATH = r"..\data\MobilePriceClassification" #Path to raw data
 MODEL_PATH = r"..\models" #Path to models 
 
-#import modules
-import models #models module
-import data_preprocessing #data preprocessing module
 
 app = Flask(__name__)
 
@@ -28,6 +21,12 @@ with open(os.path.join(MODEL_PATH,'model.pkl'), 'rb') as f:
     svm_model = pickle.load(f)
 
 def prepare_features(feature_sample):
+    """ 
+    Perform data preprocessing and feature engineering on the 1 sample dataframe
+
+    Args:
+        feature_sample: 1 sample dataframe (raw input data)
+    """
     #Remove unique identifier column
     feature_sample.drop(["Unnamed: 0"],axis=1,inplace=True)
 
@@ -38,22 +37,37 @@ def prepare_features(feature_sample):
     return feature_sample
         
 def predict(features):
+    """ 
+    Perform prediction using the loaded/saved model on the input data
+
+    Args:
+        features: 1 sample dataframe with data preprocessing and feature engineering performed on the sample
+    """
     preds = svm_model.predict(features)
     return preds[0]
 
 
 @app.route('/', methods=['GET', 'POST'])
 def predict_endpoint():
+    """ 
+    API Endpoint for predict_api.py script to call this endpoint with a sample of the dataframe
+    """    
+    #Retrieve the input data
     phone = request.get_json()
     print(f"This is the phone {phone}, {type(phone)}", file=sys.stderr)
+
+    #Convert to dataframe for preprocessing functions later (e.g. prepare functions and predict)
     phone = pd.DataFrame(json.loads(phone),index=[0])
 
+    #Perform preprocessing
     feature_sample = prepare_features(phone)
     pred = predict(feature_sample)
     print(f"This is the pred {pred}, {type(pred)}", file=sys.stderr)
+    #Prep data as json
     result = {
         'phone_cat': str(pred)
     }
+    #return as a json object
     return jsonify(result)
 
 if __name__ == "__main__":

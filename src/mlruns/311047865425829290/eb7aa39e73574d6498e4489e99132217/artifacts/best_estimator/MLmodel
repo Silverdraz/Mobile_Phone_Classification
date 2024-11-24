@@ -1,0 +1,38 @@
+artifact_path: best_estimator
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.9.20
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.5.1
+mlflow_version: 2.18.0
+model_size_bytes: 9071261
+model_uuid: b35b832a0822453c912b77b8ecfa85ea
+run_id: eb7aa39e73574d6498e4489e99132217
+signature:
+  inputs: '[{"type": "long", "name": "battery_power", "required": true}, {"type":
+    "long", "name": "blue", "required": true}, {"type": "double", "name": "clock_speed",
+    "required": true}, {"type": "long", "name": "dual_sim", "required": true}, {"type":
+    "long", "name": "fc", "required": true}, {"type": "long", "name": "four_g", "required":
+    true}, {"type": "long", "name": "int_memory", "required": true}, {"type": "double",
+    "name": "m_dep", "required": true}, {"type": "long", "name": "mobile_wt", "required":
+    true}, {"type": "long", "name": "n_cores", "required": true}, {"type": "long",
+    "name": "pc", "required": true}, {"type": "double", "name": "px_height", "required":
+    true}, {"type": "long", "name": "px_width", "required": true}, {"type": "long",
+    "name": "ram", "required": true}, {"type": "long", "name": "sc_h", "required":
+    true}, {"type": "double", "name": "sc_w", "required": false}, {"type": "long",
+    "name": "talk_time", "required": true}, {"type": "long", "name": "three_g", "required":
+    true}, {"type": "long", "name": "touch_screen", "required": true}, {"type": "long",
+    "name": "wifi", "required": true}, {"type": "long", "name": "old", "required":
+    true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2024-11-24 17:10:40.452064'

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/311047865425829290/15908c03924d4502b78e574b862fb5e2/artifacts
+end_time: 1732468046008
+entry_point_name: ''
+experiment_id: '311047865425829290'
+lifecycle_stage: active
+run_id: 15908c03924d4502b78e574b862fb5e2
+run_name: baseline_feature_engineering_MI
+run_uuid: 15908c03924d4502b78e574b862fb5e2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732468037396
+status: 3
+tags: []
+user_id: aaron

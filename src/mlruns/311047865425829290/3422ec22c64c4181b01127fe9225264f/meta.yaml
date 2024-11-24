@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/311047865425829290/3422ec22c64c4181b01127fe9225264f/artifacts
+deleted_time: 1732468016707
 end_time: 1732378399959
 entry_point_name: ''
 experiment_id: '311047865425829290'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 3422ec22c64c4181b01127fe9225264f
 run_name: melodic-midge-698
 run_uuid: 3422ec22c64c4181b01127fe9225264f

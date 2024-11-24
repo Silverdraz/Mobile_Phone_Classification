@@ -1,0 +1,16 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/311047865425829290/ab6cc9eaedc14cb58bceb827352f7b9e/artifacts
+deleted_time: 1732468898045
+end_time: 1732468611793
+entry_point_name: ''
+experiment_id: '311047865425829290'
+lifecycle_stage: deleted
+run_id: ab6cc9eaedc14cb58bceb827352f7b9e
+run_name: dashing-asp-668
+run_uuid: ab6cc9eaedc14cb58bceb827352f7b9e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732468610968
+status: 4
+tags: []
+user_id: aaron

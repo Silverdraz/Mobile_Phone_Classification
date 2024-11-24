@@ -1,0 +1,16 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/311047865425829290/b08a32ad30584ac190920263b2663bf4/artifacts
+deleted_time: 1732468898045
+end_time: 1732468586846
+entry_point_name: ''
+experiment_id: '311047865425829290'
+lifecycle_stage: deleted
+run_id: b08a32ad30584ac190920263b2663bf4
+run_name: bemused-stag-906
+run_uuid: b08a32ad30584ac190920263b2663bf4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732468586066
+status: 4
+tags: []
+user_id: aaron

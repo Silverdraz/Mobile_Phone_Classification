@@ -15,8 +15,9 @@ DATA_PATH = r"..\data\MobilePriceClassification" #Path to raw data
 MODEL_PATH = r"..\models" #Path to models 
 
 #import modules
-import models #models module
+import mlflow_func #mlflow experiment tracking module
 import data_preprocessing #data preprocessing module
+
 
 @flow(log_prints=True)
 def main_flow():
@@ -40,17 +41,12 @@ def main_flow():
     #Feature Engineering
     combine_x = [x_train,x_test]
     x_train, x_test = data_preprocessing.feature_engineering_old(combine_x)
+
+    #Declare the same mlflow experiment for consolidation
     mlflow.set_experiment("mobile_phone_classification")
-    with mlflow.start_run():
-        #Retrieve the final fitted model with tuned parameters (untrained)
-        svm_clf = models.final_svm()
-
-        #train, save model
-        svm_clf.fit(x_train,y_train)
-        save_svm_model(svm_clf)
-
-        #log to mlflow ui
-        mlflow.sklearn.log_model(svm_clf, artifact_path="inference_model")
+    svm_clf = mlflow_func.mlflow_final_model(x_train,y_train)
+    #save the model for inference
+    save_svm_model(svm_clf)
 
     #predict, combine
     final_prediction_array = svm_clf.predict(x_test)
@@ -58,7 +54,6 @@ def main_flow():
     print(final_prediction_series.value_counts())
     x_test_column["price_range"] = final_prediction_series
     x_test_column.to_csv(r"..\submission_file.csv")
-    return svm_clf
 
 
 @task(retries=3, retry_delay_seconds=2)
@@ -73,7 +68,6 @@ def train_test_dfs():
     test_data = pd.read_csv(os.path.join(DATA_PATH,f"test.csv"))
     return train_data, test_data
 
-
 def save_svm_model(svm_clf):
     """ Save the trained SVM model for inference
 
@@ -86,33 +80,11 @@ def save_svm_model(svm_clf):
 
 
 if __name__ == "__main__":
+
     main_flow()
 
-    #main_flow.serve(name="mobile_phone_1", cron="* * * * *")
+    #Create prefect orchestration deployment
+    main_flow.serve(name="mobile_phone_1", cron="* * * * *")
 
-    # flow.from_source(
-    #     source="https://github.com/Silverdraz/Mobile_Phone_Classification.git",
-    #     entrypoint=r"src/test.py:main_flow",
-    # ).deploy(name="mobile_phone_1",
-    #     work_pool_name="mobile_phone_classification",
-    #     push=True,
-    #     cron="* * * * *")
-    # main_flow.deploy(
-    #     name="mobile_phone_1",
-    #     work_pool_name="mobile_phone_classification",
-    #     push=True,
-    #     cron="* * * * *",
-    # )
-    # flow.from_source(
-    #         source="https://github.com/Silverdraz/Mobile_Phone_Classification.git",
-    #         entrypoint="src\test.py:main_flow",
-    # ).deploy(name="mobile_phone_1",
-    #     work_pool_name="mobile_phone_classification",
-    #     cron="* * * * *")
-    
-    # flow.from_source(
-    #     source="https://github.com/Silverdraz/Mobile_Phone_Classification.git",
-    #     entrypoint="src/test.py:main_flow",
-    # ).serve(name="my-first-deployment", cron="* * * * *")
  
 

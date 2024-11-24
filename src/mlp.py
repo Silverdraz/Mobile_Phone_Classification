@@ -10,45 +10,23 @@ Machine Learning Pipeline --- Stages of
 #Import statements
 import pandas as pd #data processing, CSV file I/O (e.g. pd.read_csv)
 import os #os file paths
-import numpy as np #array data manipulation
-from sklearn.model_selection import KFold #KFold Cross Validation
-from sklearn.model_selection import cross_val_score #cross validation score
-from sklearn.model_selection import cross_validate #cross validation score
-from sklearn.pipeline import Pipeline #for pipeline 
-from sklearn.experimental import enable_iterative_imputer #Mandatory to import experimental feature
-from sklearn.impute import IterativeImputer #multiple imputation (missing values)
-from sklearn.preprocessing import SplineTransformer #spline transformer (non-linearity)
-from sklearn.compose import ColumnTransformer #transform specific columns with various pipelines
-from sklearn.model_selection import GridSearchCV #grid search cv
-from sklearn.preprocessing import StandardScaler #standardization
-import mlflow
-
-#Import Models for comparison
-from sklearn.linear_model import LogisticRegression #logistic regression
-from sklearn import svm #support vector Machine
-from sklearn.ensemble import RandomForestClassifier #Random Forest
-from sklearn.neighbors import KNeighborsClassifier #KNN
-from sklearn.naive_bayes import GaussianNB #Naive bayes
-from sklearn.tree import DecisionTreeClassifier #Decision Tree
-from xgboost import XGBClassifier #xgboost
-from sklearn.ensemble import RandomForestRegressor #RandomForestRegressor
+import mlflow #ML experiment tracking
 
 #import modules
 import models #models module
 import data_preprocessing #data preprocessing module
+import mlflow_func #mlflow experiment tracking module
 
 
 #Global Constants
 DATA_PATH = r"..\data\MobilePriceClassification" #Path to raw data
 
 def main():
-    #Set MlFlow tracking sever URI
-    print("This is the start of main")
-    #mlflow.set_tracking_uri("https://my-tracking-server:5000")
+    #Create experiment for mobile phone classification project
     mlflow.set_experiment("mobile_phone_classification")
-    train_data, test_data = train_test_dfs()
- 
 
+    #Retrieve the train and test dataframes
+    train_data, test_data = train_test_dfs()
     combined_df = [train_data,test_data]
 
     train_data, test_data = data_preprocessing.remove_columns(combined_df)
@@ -69,16 +47,7 @@ def main():
 
     #XGBoost Algo with feature engineered old variable + multiple imputation
     print("Performing evaluation using feature engineered old variable + multiple imputation")
-    with mlflow.start_run(run_name = "grid_search"):
-
-        mlflow.set_tag("Developer","Aaron")
-
-        mlflow.log_param("train_val_data_path","data\MobilePriceClassification\train.csv")
-
-        mlflow.log_param("Model","XGBoost with MI with feature engineered Old variable")
-
-        result = models.mi_algo(x_train,y_train)
-        mlflow.log_metric("accuracy",result)
+    mlflow_func.mlflow_mi_algo(x_train,y_train)
 
     #Feature Engineering
     combine_x = [x_train,x_test]
@@ -118,22 +87,7 @@ def main():
     models.spline_svm(preprocessor,x_train,y_train)
 
     print("Performing hyperparameter tuning on svm")
-    extra_tags = {"Developer": "Aaron"}
-    mlflow.sklearn.autolog(extra_tags=extra_tags)
-    with mlflow.start_run(run_name = "grid_search"):
-        models.svm_tuning(x_train,y_train)
-        #mlflow.log_artifact
-        #grid = models.svm_tuning(x_train,y_train)
-        # mlflow.set_tag("Developer","Aaron")
-
-        # # log the best estimator fround by grid search in the outer mlflow run 
-        # for k_param in grid.best_params_.keys():
-        #     mlflow.log_param(k_param, grid.best_params_[k_param])
-        
-        # mlflow.log_metric("accuracy",grid.best_score_)
-        # mlflow.sklearn.log_model(grid.best_estimator_, 'best_svm_model')
-    mlflow.autolog(disable=True)
-
+    mlflow_func.mlflow_svm_tuning(x_train,y_train)
 
 
 
@@ -147,7 +101,6 @@ def train_test_dfs():
     train_data = pd.read_csv(os.path.join(DATA_PATH,f"train.csv"))
     test_data = pd.read_csv(os.path.join(DATA_PATH,f"test.csv"))
     return train_data, test_data
-
 
 if __name__ == "__main__":
     main()
