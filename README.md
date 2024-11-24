@@ -1,5 +1,44 @@
-# mobile Price Classification (Multi-class Classification Machine Learning)
-**The objective of this ML github project is to showcase the end-to-end pipeline of multiclass machine learning classification problem from data ingestion to data preprocessing to feature engineering to model comparison to hyperparameter tuning and eventually inferencing/predicting.
+# Mobile Price Classification (Multi-class Classification Machine Learning)
+The objective of this ML github project is to showcase the **end-to-end pipeline of multiclass machine learning classification problem** from data ingestion to data preprocessing to feature engineering to model comparison to hyperparameter tuning and eventually inferencing/predicting. Additionally, **some mlops tools have been experimented with to demostrate capabilities** such as model experiment tracking (MLFlow), orchrestration (Prefect), flask server, model result monitoring (Evidently) and dashboarding (Grafana).
+
+
+## Setting up of the environments and the various ML tools
+1. Create a clean/fresh conda environment with python environment 3.9
+```
+conda create -n env_name python=3.9 anaconda
+```
+
+2. Activate the conda environment and install pip in conda env
+```
+conda install pip
+conda activate env_name
+```
+
+3. Install the required frameworks/libraries from the requirements.txt using pip
+
+4. Activate the prefect server before MLFlow
+```
+prefect server start
+```
+
+5. Activate MLFlow to view the dashboard
+```
+mlflow ui
+```
+
+6. Activate Flask Web Server and use predict_api.py to test the predict.py flask server
+```
+cd src
+python predict.py
+python predict_api.py
+```
+
+7. Docker compose up the grafana dashboard, database for storing of metrics, evidently for calculation of the metrics
+```
+cd ..
+docker compose build
+docker compose up / docker compose up --build
+```
 
 ## Scoring Metric Choice
 **Accuracy is used as the choice of evaluation metric** as from EDA, it can be observed that the **price_range target labels are well balanced.** The model evaluated using accuracy should generalise well to test dataset, provided that the distribution of the test dataset is similar to the train dataset, though this is regardless of the model. 
@@ -30,4 +69,18 @@ iii.	Comparison across the models were then performed from non-tree base models 
 iv.	**SVM performed best with the feature engineered “old” phone model variable**, compared to using the original datasets or the spline transformation. **Standardized (standard scalar) has been trialled as SVM uses distance metrics to classify and having a standardized feature set after imputation and before the model should be better.** Surprisingly, the model works poorer under these conditions and was as such, these were not adopted.
 v.	Grid search hyperparameter search was implemented as it was thought there is slight overfitting from the results.csv file. However, the param of C = 1.1 provided the best score, which indicates that lower regularisation instead provided better validation accuracy. Hence, perhaps the overfitting is considered insignificant
 
+## MLOps tools
+Various tools were experiemnted with to demostrate as well as simulate production like machine learning projects in MLOps. Though it is not a full-fledge mlops project and more tools could be considered, this is an endeavour at least in part to strive towards that production like experimentation with industry ml projects.
+
+**Flask Server**
+Start the flask web server from predict.py and call the API endpoint from predict.py. Flask was chosen as it is mature and well tested, allowing for calls between the frontend and backend.
+
+**MLFlow**
+MLFlow is used for experimentation tracking and allows for better logging of the various metrics. Models could even be hosted on the model registry with various stages such as staging and production. It even allows models to be hosted on AWS S3, allowing for persistence of storing the model.
+
+**Prefect**
+Prefect is a simple and easy to use orchrestration tool that is intuitive as compared to other tools, though this may be subject to individual preference as well as the team's choice.
+
+**Evidently and Grafana**
+Evidently and Grafana allows for easy monitoring of the model performance and early detection of model drift.
 
