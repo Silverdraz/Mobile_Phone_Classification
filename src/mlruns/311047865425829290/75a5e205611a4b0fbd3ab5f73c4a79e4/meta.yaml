@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/311047865425829290/75a5e205611a4b0fbd3ab5f73c4a79e4/artifacts
+end_time: 1732378139851
+entry_point_name: ''
+experiment_id: '311047865425829290'
+lifecycle_stage: active
+run_id: 75a5e205611a4b0fbd3ab5f73c4a79e4
+run_name: grid_search
+run_uuid: 75a5e205611a4b0fbd3ab5f73c4a79e4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732378130696
+status: 3
+tags: []
+user_id: aaron

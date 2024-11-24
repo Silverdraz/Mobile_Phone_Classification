@@ -122,7 +122,7 @@ def main():
     mlflow.sklearn.autolog(extra_tags=extra_tags)
     with mlflow.start_run(run_name = "grid_search"):
         models.svm_tuning(x_train,y_train)
-        mlflow.log_artifact
+        #mlflow.log_artifact
         #grid = models.svm_tuning(x_train,y_train)
         # mlflow.set_tag("Developer","Aaron")
 
