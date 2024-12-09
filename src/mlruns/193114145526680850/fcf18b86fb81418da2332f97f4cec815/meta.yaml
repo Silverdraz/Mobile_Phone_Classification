@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/193114145526680850/fcf18b86fb81418da2332f97f4cec815/artifacts
+end_time: 1733239424876
+entry_point_name: ''
+experiment_id: '193114145526680850'
+lifecycle_stage: active
+run_id: fcf18b86fb81418da2332f97f4cec815
+run_name: bold-calf-176
+run_uuid: fcf18b86fb81418da2332f97f4cec815
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733239353353
+status: 3
+tags: []
+user_id: aaron

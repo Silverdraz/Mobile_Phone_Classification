@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/193114145526680850/d5653de2fed244c0a462591e327694af/artifacts
+end_time: 1733239424876
+entry_point_name: ''
+experiment_id: '193114145526680850'
+lifecycle_stage: active
+run_id: d5653de2fed244c0a462591e327694af
+run_name: monumental-gnu-590
+run_uuid: d5653de2fed244c0a462591e327694af
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733239353353
+status: 3
+tags: []
+user_id: aaron

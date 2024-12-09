@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/193114145526680850/1921fb1180d54bccbe9cf41636f54528/artifacts
+end_time: 1733559460587
+entry_point_name: ''
+experiment_id: '193114145526680850'
+lifecycle_stage: active
+run_id: 1921fb1180d54bccbe9cf41636f54528
+run_name: thoughtful-cub-149
+run_uuid: 1921fb1180d54bccbe9cf41636f54528
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733559457501
+status: 3
+tags: []
+user_id: aaron

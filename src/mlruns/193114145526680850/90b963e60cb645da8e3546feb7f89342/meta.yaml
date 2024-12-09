@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/193114145526680850/90b963e60cb645da8e3546feb7f89342/artifacts
+end_time: 1733559525037
+entry_point_name: ''
+experiment_id: '193114145526680850'
+lifecycle_stage: active
+run_id: 90b963e60cb645da8e3546feb7f89342
+run_name: peaceful-dove-743
+run_uuid: 90b963e60cb645da8e3546feb7f89342
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733559521949
+status: 3
+tags: []
+user_id: aaron

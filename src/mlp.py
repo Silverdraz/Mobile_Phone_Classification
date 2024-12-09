@@ -20,9 +20,11 @@ import mlflow_func #mlflow experiment tracking module
 
 #Global Constants
 DATA_PATH = r"..\data\MobilePriceClassification" #Path to raw data
+TRACKING_SERVER_HOST = "ec2-54-252-156-209.ap-southeast-2.compute.amazonaws.com" #Public DNS to AWS EC2 Instance
 
 def main():
     #Create experiment for mobile phone classification project
+    mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
     mlflow.set_experiment("mobile_phone_classification")
 
     #Retrieve the train and test dataframes
@@ -63,31 +65,32 @@ def main():
     print("Performing evaluation using baseline XGBoost + MI + FE")
     models.mi_fe_algo(x_train,y_train)
 
-    #Perform
-    preprocessor = data_preprocessing.feature_engineering_spline()
-    models.spline_transformed_algo(preprocessor,x_train,y_train)
+    # #Perform
+    # preprocessor = data_preprocessing.feature_engineering_spline()
+    # models.spline_transformed_algo(preprocessor,x_train,y_train)
 
-    #Map 0 to np.nan for dataset without feature engineering
-    x_train_beforefe, x_test_beforefe = data_preprocessing.map_missing_values(combine_x_beforefe)
+    # #Map 0 to np.nan for dataset without feature engineering
+    # x_train_beforefe, x_test_beforefe = data_preprocessing.map_missing_values(combine_x_beforefe)
 
-    #Do model comparisons against the baseline (XGBoost) and baseline + iterative improvements (XGBoost + MI + FE)
-    print("Model Comparison in progress")
-    models.compare_models(x_train,y_train)
+    # #Do model comparisons against the baseline (XGBoost) and baseline + iterative improvements (XGBoost + MI + FE)
+    # print("Model Comparison in progress")
+    # models.compare_models(x_train,y_train)
 
 
-    print("Validating SVM without feature engineering dataset")
-    models.chosen_svm(x_train_beforefe,y_train)
-    print("Validating SVM on feature engineered old mobile phone variable")
-    models.chosen_svm(x_train,y_train)
+    # print("Validating SVM without feature engineering dataset")
+    # models.chosen_svm(x_train_beforefe,y_train)
+    # print("Validating SVM on feature engineered old mobile phone variable")
+    # models.chosen_svm(x_train,y_train)
 
-    print("Validating SVM on standardized dataset")
-    models.scale_svm(x_train,y_train)
+    # print("Validating SVM on standardized dataset")
+    # models.scale_svm(x_train,y_train)
 
-    print("Validating SVM on standardized and spline transformed dataset")
-    models.spline_svm(preprocessor,x_train,y_train)
+    # print("Validating SVM on standardized and spline transformed dataset")
+    # models.spline_svm(preprocessor,x_train,y_train)
 
     print("Performing hyperparameter tuning on svm")
     mlflow_func.mlflow_svm_tuning(x_train,y_train)
+    #mlflow.log_artifact("path/to/file")
 
 
 

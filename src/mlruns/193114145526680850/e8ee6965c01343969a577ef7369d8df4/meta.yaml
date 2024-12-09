@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/193114145526680850/e8ee6965c01343969a577ef7369d8df4/artifacts
+end_time: 1733559483245
+entry_point_name: ''
+experiment_id: '193114145526680850'
+lifecycle_stage: active
+run_id: e8ee6965c01343969a577ef7369d8df4
+run_name: industrious-newt-297
+run_uuid: e8ee6965c01343969a577ef7369d8df4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733559480173
+status: 3
+tags: []
+user_id: aaron

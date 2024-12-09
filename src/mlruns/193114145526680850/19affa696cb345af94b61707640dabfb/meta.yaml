@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aaron/OneDrive/Desktop/Mobile_Phone_Classification/src/mlruns/193114145526680850/19affa696cb345af94b61707640dabfb/artifacts
+end_time: 1733239424876
+entry_point_name: ''
+experiment_id: '193114145526680850'
+lifecycle_stage: active
+run_id: 19affa696cb345af94b61707640dabfb
+run_name: luxuriant-colt-894
+run_uuid: 19affa696cb345af94b61707640dabfb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733239353353
+status: 3
+tags: []
+user_id: aaron
