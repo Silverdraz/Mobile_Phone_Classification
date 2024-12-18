@@ -13,7 +13,7 @@ def test_prepare_features():
     test_data = pd.read_csv(os.path.join(DATA_PATH,f"test.csv"))
     test_sample = test_data.iloc[0, :].to_json()
     phone = pd.DataFrame(json.loads(test_sample),index=[0])
-    print(phone,"this is phone")
+    print(phone)
 
     actual_features = model_service.prepare_features(phone)
     print(actual_features.to_json())
