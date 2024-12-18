@@ -1,3 +1,0 @@
-[('mi', IterativeImputer(estimator=RandomForestRegressor(max_depth=8, max_samples=0.5,
-                                                 n_estimators=10, n_jobs=2,
-                                                 random_state=0))), ('svm', SVC())]

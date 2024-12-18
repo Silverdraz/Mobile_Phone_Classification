@@ -20,9 +20,11 @@ import mlflow_func #mlflow experiment tracking module
 
 #Global Constants
 DATA_PATH = r"..\data\MobilePriceClassification" #Path to raw data
+TRACKING_SERVER_HOST = "ec2-54-252-156-209.ap-southeast-2.compute.amazonaws.com" #Public DNS to AWS EC2 Instance
 
 def main():
     #Create experiment for mobile phone classification project
+    mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
     mlflow.set_experiment("mobile_phone_classification")
 
     #Retrieve the train and test dataframes
@@ -88,6 +90,7 @@ def main():
 
     print("Performing hyperparameter tuning on svm")
     mlflow_func.mlflow_svm_tuning(x_train,y_train)
+    #mlflow.log_artifact("path/to/file")
 
 
 

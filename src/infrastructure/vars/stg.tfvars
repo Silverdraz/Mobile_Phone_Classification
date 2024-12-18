@@ -1,0 +1,5 @@
+model_bucket = "stg-mlflow-models"
+lambda_function_local_path = "../lambda_function.py"
+docker_image_local_path = "../Dockerfile"
+ecr_repo_name = "stg_mobile_phone"
+lambda_function_name = "stg_prediction_lambda"

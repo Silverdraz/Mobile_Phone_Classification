@@ -40,8 +40,10 @@ def mlflow_svm_tuning(x_train,y_train):
     extra_tags = {"Developer": "Aaron"}
     mlflow.sklearn.autolog(extra_tags=extra_tags)
     with mlflow.start_run(run_name = "grid_search"):
+        #mlflow.set_tag("Developer","Aaron")
+        #print(mlflow.get_artifact_uri(),"this is the artifact")
+        #mlflow.log_param("train_val_data_path","data\MobilePriceClassification\train.csv")
         models.svm_tuning(x_train,y_train)
-    mlflow.autolog(disable=True)
 
 def mlflow_final_model(x_train,y_train):
     """ Log the model as an artifact for loading and inference SVM is chosen at the model for prediction/inference. Using grid search to tune 
