@@ -40,7 +40,11 @@ module "lambda_function" {
   model_bucket = module.s3_bucket.name
 }
 
-# For CI/CD
+# For CI/CD -
 output "lambda_function" {
   value     = "${var.lambda_function_name}_${var.project_id}"
+}
+
+output "ecr_repo" {
+  value = "${var.ecr_repo_name}_${var.project_id}"
 }
