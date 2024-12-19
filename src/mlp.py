@@ -90,8 +90,6 @@ def main():
 
     print("Performing hyperparameter tuning on svm")
     mlflow_func.mlflow_svm_tuning(x_train,y_train)
-    #mlflow.log_artifact("path/to/file")
-
 
 
 def train_test_dfs():

@@ -1,5 +1,11 @@
-import lambda_function
+"""
+Python Script for calling the lambda function locally with event
+"""
 
+#Import modules
+import lambda_function #module to simulate invocation of lambda function
+
+#sample example to test lambda
 event = {
   "phone": {
     "Unnamed: 0": 1.0,

@@ -4,10 +4,7 @@ Perform inference/prediction as an API endpoint using the saved SVM model that w
 
 #Import statements
 import pandas as pd #data processing, CSV file I/O (e.g. pd.read_csv)
-import os #os file paths
-import pickle #Saving and loading models or python objects
 from flask import Flask, request, jsonify #web framework
-import sys #system module
 import json #json handling
 import mlflow #experiment tracking
 

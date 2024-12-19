@@ -1,3 +1,7 @@
+"""
+Python Script for calling the built docker container locally as a means to test and interact with the docker locally
+"""
+
 #Import modules
 import requests 
 

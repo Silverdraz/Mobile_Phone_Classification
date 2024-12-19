@@ -1,25 +1,69 @@
-import json
-import pandas as pd
-import mlflow
-import boto3
-import model
+"""
+Python Script for calling both the lambda function (lambda_function.py) script as well as the lambda function itself (lambda_handler) from the Dockerfile
+as "lambda_function.lambda_handler" 
+"""
+#Import statements
+import mlflow #ML experiment tracking
+
+#import modules
+import model #model module (Script version of lambda function on AWS console - Data Preprocessing to feature engineering and inference)
 
 
 #Global Constants
-MODEL_PATH = r"../models" #Path to models 
 RUN_ID = "dcf13e6b81f740ac8d959d27fb18683c" #ID of ML Model saved on MLFlow
-mlflow.set_tracking_uri('http://ec2-54-252-156-209.ap-southeast-2.compute.amazonaws.com:5000')
-logged_model = f"runs:/{RUN_ID}/best_estimator"
+mlflow.set_tracking_uri('http://ec2-54-252-156-209.ap-southeast-2.compute.amazonaws.com:5000') 
 
-#Load model as a PyFuncModel
-svm_model = mlflow.pyfunc.load_model(logged_model)
-
+#Retrieve the model from the mlflow server on EC2 instance
 model_service = model.init(RUN_ID=RUN_ID)
 
 def lambda_handler(event,context):
-    return model_service.lambda_handler(event)
+    """Local version of the Lambda Function that will be invoked when uploaded as an image to ECR and subsequently invoked
+    from the lambda function
 
+    Args:
+        event: JSON type with 'phone' key as a sample example
+        context: required param that is not used
+            E.g. of event:
+            event = {
+                "phone": {
+                    "Unnamed: 0": 1.0,
+                    "battery_power": 1021,
+                    "blue": 1,
+                    "clock_speed": 0.5,
+                    "dual_sim": 1,
+                    "fc": 0,
+                    "four_g": 1,
+                    "int_memory": 53,
+                    "m_dep": 0.7,
+                    "mobile_wt": 136,
+                    "n_cores": 3,
+                    "pc": 6,
+                    "px_height": 905,
+                    "px_width": 1988,
+                    "ram": 2631,
+                    "sc_h": 17,
+                    "sc_w": 3,
+                    "talk_time": 7,
+                    "three_g": 1,
+                    "touch_screen": 1,
+                    "wifi": 0
+                }
+            }
 
+    Returns: 
+        prediction : json with prediction for sample returned
+        E.g.:
+        {'phone_cat': '2'}
+    """
+    prediction_json = model_service.lambda_handler(event)
+    return prediction_json
+
+#Global Constants
+#MODEL_PATH = r"../models" #Path to models 
+# logged_model = f"runs:/{RUN_ID}/best_estimator"
+
+# #Load model as a PyFuncModel
+# svm_model = mlflow.pyfunc.load_model(logged_model)
 
 # lambda_client = boto3.client('lambda')
 
