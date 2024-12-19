@@ -72,6 +72,17 @@ v.	Grid search hyperparameter search was implemented as it was thought there is 
 ## MLOps tools
 Various tools were experiemnted with to demostrate as well as simulate production like machine learning projects in MLOps. Though it is not a full-fledge mlops project and more tools could be considered, this is an endeavour at least in part to strive towards that production like experimentation with industry ml projects.
 
+![alt text](model_deployment.jpg)
+
+**AWS Cloud Services**
+AWS EC2 Instance for persistence of MLFlow experiment tracking. AWS S3 to store ML/DL/LLM model artifact. AWS ECR for storing docker image. AWS Lambda for function invocation. 
+
+**Terraform**
+Terraform as an IAC to spin up the respective AWS resources and modules, allowing for greater automation in creating resources
+
+**Github Action**
+Terraform as an IAC to spin up the respective AWS resources and modules, allowing for greater automation in creating resources
+
 **Flask Server**
 Start the flask web server from predict.py and call the API endpoint from predict.py. Flask was chosen as it is mature and well tested, allowing for calls between the frontend and backend.
 
